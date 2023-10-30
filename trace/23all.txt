@@ -1,0 +1,19 @@
+#my-all
+    00:        00100093        addi x1 x0 1     x1 = 1
+    04:        00800113        addi x2 x0 8     x2 = 8
+    08:        402101b3        sub x3 x2 x2     x3 = 0
+    0c:        00114463        blt x2 x1 8      8 < 1 = 0
+    10:        00008133        add x2 x1 x0     x2 = 1
+    14:        0011c463        blt x3 x1 8      0 < 1 = 1 -> goto 0x14+8=0x1c
+    18:        00200113        addi x2 x0 2     x2 = 2 (skipped)
+    1c:        00202023        sw x2 0 x0       (1 at 0)=>blt branched here
+    20:        02000213        addi x4 x0 32    x4 = 32
+    24:        00c201e7        jalr x3 x4 12    x3 = 0x24+4=40, PC = 44 (0x2c)
+    28:        00800193        addi x3 x0 8     x3 = 8 (skipped)
+    2c:        00302223        sw x3 4 x0       x3 = 40  (since 40 at 4)
+    30:        00402503        lw x10 4 x0      x10 = 40 (so 40 at 4)
+    34:        00002583        lw x11 0 x0      x11 = 1  (so 1 at 0)
+#end
+# at the end we should have: (a0,a1) = (40,1)
+
+// always remember that label is relative to the current PC address!
